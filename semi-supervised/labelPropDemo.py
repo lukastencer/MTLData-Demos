@@ -17,26 +17,27 @@ from copy import copy
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.semi_supervised import label_propagation
-from sklearn.datasets import make_circles, make_multilabel_classification, make_classification, make_blobs
+from sklearn.datasets import make_circles, make_multilabel_classification, make_classification, make_blobs, make_moons
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 
 
 class Generators:
-    CLF, CLF_MULTI, BLOBS, CICRLES = range(4)
+    CLF, CLF_MULTI, BLOBS, CICRLES, MOONS = range(5)
 
 # --- get data ---
 
 # parameter setup
 showOrig = True
 n_samples = 200
-n_classes = 3
+n_classes = 10
 classes = range(0, n_classes)
 shuffle = False
 n_labeled = 1
-generator = Generators.BLOBS
-clf = GaussianNB()
-iterations = 20
+generator = Generators.MOONS
+clf = KNeighborsClassifier(n_neighbors=1)
+#clf = GaussianNB()
+iterations = 50
 
 # sample generation
 if generator == Generators.CLF:
@@ -47,6 +48,8 @@ elif generator == Generators.BLOBS:
     X, y = make_blobs(n_samples=n_samples, n_features=2, centers=n_classes)
 elif generator == Generators.CICRLES:
     X, y = make_circles(n_samples=n_samples, shuffle=shuffle)
+elif generator == Generators.MOONS:
+    X, y = make_moons(n_samples=n_samples, shuffle=shuffle)
 
 labels = -np.ones(n_samples)
 
