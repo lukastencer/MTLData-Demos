@@ -34,7 +34,7 @@ n_classes = 10
 classes = range(0, n_classes)
 shuffle = False
 n_labeled = 1
-generator = Generators.MOONS
+generator = Generators.BLOBS
 clf = KNeighborsClassifier(n_neighbors=1)
 #clf = GaussianNB()
 iterations = 50
